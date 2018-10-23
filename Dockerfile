@@ -18,8 +18,11 @@ ARG FLOOD_VER="1.0.0"
 # set env
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 ENV LD_LIBRARY_PATH=/usr/local/lib
-ENV FLOOD_SECRET=password
+ENV FLOOD_SECRET=flood
 ENV CONTEXT_PATH=/
+ENV PUID=1000
+ENV PGID=100
+ENV TZ=Europe/Budapest
     
 RUN NB_CORES=${BUILD_CORES-`getconf _NPROCESSORS_CONF`} && \
  apk add --no-cache \
@@ -37,26 +40,15 @@ RUN NB_CORES=${BUILD_CORES-`getconf _NPROCESSORS_CONF`} && \
         unzip \
         sox \
         wget \
-        irssi \
-        irssi-perl \
         zlib \
         zlib-dev \
         libxml2-dev \
-        perl-archive-zip \
-        perl-net-ssleay \
-        perl-digest-sha1 \
         git \
         libressl \
         binutils \
         findutils \
-        zip \
-        php7 \
-        php7-cgi \
-        php7-fpm \
-        php7-json  \
-        php7-mbstring \
-        php7-sockets \
-        php7-pear && \
+		ncurses \
+        zip && \
 
 # install build packages
  apk add --no-cache --virtual=build-dependencies \
@@ -77,6 +69,7 @@ RUN NB_CORES=${BUILD_CORES-`getconf _NPROCESSORS_CONF`} && \
         linux-headers \
         curl-dev \
         libressl-dev && \
+		xz && \
 
 # compile curl to fix ssl for rtorrent
 cd /tmp && \

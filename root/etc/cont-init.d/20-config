@@ -10,8 +10,8 @@
 
 # make folders
 mkdir -p \
-	/config{/log/nginx,/log/rtorrent,/nginx,/nginx/conf.d,/php,/rtorrent/rtorrent_sess,/flood} \
-	/run{/nginx,/php} \
+	/config{/log/nginx,/log/rtorrent,/nginx,/nginx/conf.d,/rtorrent/rtorrent_sess,/flood} \
+	/run{/nginx} \
 	/var/lib/nginx/tmp/client_body
 
 # copy config
@@ -41,3 +41,8 @@ chown -R abc:abc \
 	/var/lib/nginx
 
 chmod 644 /etc/logrotate.d/*
+
+if [ ! -e "/config/nginx/conf.d/basic.conf" ]
+then
+ cp /defaults/conf.d/* /config/nginx/conf.d/
+fi
