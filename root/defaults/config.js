@@ -14,7 +14,7 @@ const CONFIG = {
     socket: true,
     socketPath: '/run/php/.rtorrent.sock'
   },
-  ssl: true,
+  ssl: false,
   sslKey: '/config/nginx/key.pem',
   sslCert: '/config/nginx/cert.pem',
   torrentClientPollInterval: 1000 * 2

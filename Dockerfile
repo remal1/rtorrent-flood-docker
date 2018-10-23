@@ -86,60 +86,6 @@ wget -qO- https://curl.haxx.se/download/curl-${CURL_VER}.tar.gz | tar xz --strip
 ./configure --with-ssl && make -j ${NB_CORES} && make install && \
 ldconfig /usr/bin && ldconfig /usr/lib && \
 
-# install webui
- mkdir -p \
-        /usr/share/webapps/rutorrent \
-        /defaults/rutorrent-conf && \
- git clone https://github.com/Novik/ruTorrent.git \
-        /usr/share/webapps/rutorrent/ && \
- mv /usr/share/webapps/rutorrent/conf/* \
-        /defaults/rutorrent-conf/ && \
- rm -rf \
-        /defaults/rutorrent-conf/users && \
-
-# install webui extras
-# QuickBox Theme
-git clone https://github.com/QuickBox/club-QuickBox /usr/share/webapps/rutorrent/plugins/theme/themes/club-QuickBox && \
-git clone https://github.com/Phlooo/ruTorrent-MaterialDesign /usr/share/webapps/rutorrent/plugins/theme/themes/MaterialDesign && \
-# ruTorrent plugins
-cd /usr/share/webapps/rutorrent/plugins/ && \
-git clone https://github.com/orobardet/rutorrent-force_save_session force_save_session && \
-git clone https://github.com/AceP1983/ruTorrent-plugins  && \
-mv ruTorrent-plugins/* . && \
-rm -rf ruTorrent-plugins && \
-apk add --no-cache cksfv && \
-git clone https://github.com/nelu/rutorrent-thirdparty-plugins.git && \
-mv rutorrent-thirdparty-plugins/* . && \
-rm -rf rutorrent-thirdparty-plugins && \
-cd /usr/share/webapps/rutorrent/ && \
-chmod 755 plugins/filemanager/scripts/* && \
-rm -rf plugins/fileupload && \
-cd /tmp && \
-git clone https://github.com/mcrapet/plowshare.git && \
-cd plowshare/ && \
-make install && \
-cd .. && \
-rm -rf plowshare* && \
-apk add --no-cache unzip bzip2 && \
-cd /tmp && \
-wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz && \
-tar zxvf rarlinux-x64-5.4.0.tar.gz && \
-mv rar/rar /usr/bin && \
-mv rar/unrar /usr/bin && \
-rm -rf rar;rm rarlinux-* && \
-cd /usr/share/webapps/rutorrent/plugins/ && \
-git clone https://github.com/Gyran/rutorrent-pausewebui pausewebui && \
-git clone https://github.com/Gyran/rutorrent-ratiocolor ratiocolor && \
-sed -i 's/changeWhat = "cell-background";/changeWhat = "font";/g' /usr/share/webapps/rutorrent/plugins/ratiocolor/init.js && \
-git clone https://github.com/Gyran/rutorrent-instantsearch instantsearch && \
-git clone https://github.com/xombiemp/rutorrentMobile && \
-git clone https://github.com/dioltas/AddZip && \
-
-# install autodl-irssi perl modules
- perl -MCPAN -e 'my $c = "CPAN::HandleConfig"; $c->load(doit => 1, autoconfig => 1); $c->edit(prerequisites_policy => "follow"); $c->edit(build_requires_install_policy => "yes"); $c->commit' && \
- curl -L http://cpanmin.us | perl - App::cpanminus && \
-        cpanm HTML::Entities XML::LibXML JSON JSON::XS && \
-
 # compile xmlrpc-c
 cd /tmp && \
 svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c && \
@@ -214,5 +160,5 @@ wget -qO- https://github.com/rakshasa/rtorrent/archive/${RTORRENT_VER}.tar.gz | 
 COPY root/ /
 
 # ports and volumes
-EXPOSE 443 51415 3000
+EXPOSE 19939 3000
 VOLUME /config /downloads
