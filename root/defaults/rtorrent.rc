@@ -1,7 +1,3 @@
-# Initialize plugins on rtorrent start without opening webui
-execute = {sh,-c,/usr/bin/php7 /usr/share/webapps/rutorrent/php/initplugins.php abc &}
-execute = {sh,-c,/usr/bin/php7 /usr/share/webapps/rutorrent/php/initplugins.php admin &}
-
 # Prepare rtorrent communication socket
 execute.nothrow = rm,/run/.rtorrent.sock
 network.scgi.open_local = /run/.rtorrent.sock
