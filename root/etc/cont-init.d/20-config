@@ -46,3 +46,5 @@ if [ ! -e "/config/nginx/conf.d/basic.conf" ]
 then
  cp /defaults/conf.d/* /config/nginx/conf.d/
 fi
+
+su -c "echo 'export PATH=$PATH:~/bin' >> ~/.profile" abc
